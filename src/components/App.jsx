@@ -11,10 +11,18 @@ function App() {
   }
 
   function addItem() {
-    setItems(prevItems => {
+    setItems((prevItems) => {
       return [...prevItems, inputText];
     });
     setInputText("");
+  }
+  function deleteItem(id) {
+    //console.log(id);
+    setItems((prevItems) => {
+      return prevItems.filter((item, index) => {
+        return index !== id;
+      });
+    });
   }
 
   return (
@@ -30,9 +38,13 @@ function App() {
       </div>
       <div>
         <ul>
-          {items.map(todoItem => (
-            <ToDoItems
-              text={todoItem} />
+          {items.map((todoItem, index) => (
+            <ToDoItems 
+            key={index} 
+            id={index}
+            text={todoItem} 
+            onChecked={deleteItem} 
+            />
           ))}
         </ul>
       </div>
